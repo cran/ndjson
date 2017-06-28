@@ -2,10 +2,10 @@
 #'
 #' @name ndjson
 #' @docType package
-#' @author Bob Rudis (@@hrbrmstr)
-#' @useDynLib ndjson
-#' @import Rcpp11
+#' @author Bob Rudis (bob@@rud.is)
+#' @useDynLib ndjson, .registration=TRUE
 #' @importFrom Rcpp sourceCpp
 #' @importFrom data.table rbindlist
 #' @importFrom dtplyr tbl_dt
+#' @importFrom dplyr tbl_df
 NULL

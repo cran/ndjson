@@ -1,9 +1,27 @@
 
+[![Travis-CI Build Status](https://travis-ci.org/hrbrmstr/ndjson.svg)](https://travis-ci.org/hrbrmstr/ndjson) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/ndjson)](https://cran.r-project.org/package=ndjson) ![downloads](http://cranlogs.r-pkg.org/badges/grand-total/ndjson)
+
 `ndjson` : Wicked-fast Streaming JSON ('ndjson') Reader
 
 Rcpp/C++11 wrapper for <https://github.com/nlohmann/json>
 
 The goal is to create a completely "flat" `data.frame`-like structure from ndjson records in plain text ndjson files or gzip'd ndjson files.
+
+### Installation guidance for Linux/BSD-ish systems
+
+CRAN has binaries for Windows and macOS. To build this on UNIX-like systems, you need at least g++4.9 or clang++. This is a forced requirement by the ndjson library.
+
+The least painful way to do this is to install gcc &gt;= 4.9 (and you should install ccache while you're at it) and mmodfiy `~/.R/Makevars` thusly:
+
+    # Use whatever version of (g++ >=4.9 or clang++) that you downloaded
+    VER=-4.9
+    CC=ccache gcc$(VER)
+    CXX=ccache g++$(VER)
+    SHLIB_CXXLD=g++$(VER)
+    FC=ccache gfortran
+    F77=ccache gfortran
+
+### Why `ndjson` + Examples
 
 An example of such files are the output from Rapid7 internet-wide scans, such as their [HTTPS study](https://scans.io/study/sonar.https). A gzip'd extract of 100,000 of one of those scans weighs in abt about 171MB. The records sometimes contain heavily nested JSON elements depending on how comprehensive the certificate data and other fields were. A typical record will look like this:
 
@@ -73,7 +91,8 @@ However, if you do end up trying to work with that scan data, it's highly recomm
 The following functions are implemented:
 
 -   `stream_in`: Stream in ndjson from a file (handles `.gz` files)
--   `validate`: Validate JSON records in an ndjson file (handles `.gz` files).
+-   `validate`: Validate JSON records in an ndjson file (handles `.gz` files)
+-   `flatten`: Flatten a character vector of individual JSON lines
 
 There are no current plans for a `stream_out()` function since `jsonlite::stream_out()` does a great job tossing `data.frame`-like structures out to an ndjson file.
 
@@ -93,7 +112,18 @@ library(microbenchmark)
 packageVersion("ndjson")
 ```
 
-    ## [1] '0.2.0'
+    ## [1] '0.3.0.0'
+
+``` r
+flatten('{"top":{"next":{"final":1,"end":true},"another":"yes"},"more":"no"}')
+```
+
+    ## Source: local data table [1 x 4]
+    ## 
+    ## # tbl_dt [1 × 4]
+    ##    more top.another top.next.end top.next.final
+    ##   <chr>       <chr>        <lgl>          <dbl>
+    ## 1    no         yes         TRUE              1
 
 ``` r
 f <- system.file("extdata", "test.json", package="ndjson")
@@ -133,24 +163,28 @@ dplyr::glimpse(jsonlite::stream_in(file(f), flatten=TRUE, verbose=FALSE))
 ```
 
     ## Observations: 100
-    ## Variables: 5
-    ## $ url     <chr> "http://httpbin.org/stream/100", "http://httpbin.org/stream/100", "http://httpbin.org/stream/100", ...
-    ## $ headers <data.frame> c("httpbin.org", "httpbin.org", "httpbin.org", "httpbin.org", "httpbin.org", "httpbin.org", ...
-    ## $ args    <data.frame> 
-    ## $ id      <int> 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 2...
-    ## $ origin  <chr> "50.252.233.22", "50.252.233.22", "50.252.233.22", "50.252.233.22", "50.252.233.22", "50.252.233.22...
+    ## Variables: 7
+    ## $ url                     <chr> "http://httpbin.org/stream/100", "http://httpbin.org/stream/100", "http://httpbin.o...
+    ## $ id                      <int> 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 2...
+    ## $ origin                  <chr> "50.252.233.22", "50.252.233.22", "50.252.233.22", "50.252.233.22", "50.252.233.22"...
+    ## $ headers.Host            <chr> "httpbin.org", "httpbin.org", "httpbin.org", "httpbin.org", "httpbin.org", "httpbin...
+    ## $ headers.Accept-Encoding <chr> "identity", "identity", "identity", "identity", "identity", "identity", "identity",...
+    ## $ headers.Accept          <chr> "*/*", "*/*", "*/*", "*/*", "*/*", "*/*", "*/*", "*/*", "*/*", "*/*", "*/*", "*/*",...
+    ## $ headers.User-Agent      <chr> "Wget/1.18 (darwin15.5.0)", "Wget/1.18 (darwin15.5.0)", "Wget/1.18 (darwin15.5.0)",...
 
 ``` r
 dplyr::glimpse(jsonlite::stream_in(gzfile(gzf), flatten=TRUE, verbose=FALSE))
 ```
 
     ## Observations: 100
-    ## Variables: 5
-    ## $ url     <chr> "http://httpbin.org/stream/100", "http://httpbin.org/stream/100", "http://httpbin.org/stream/100", ...
-    ## $ headers <data.frame> c("httpbin.org", "httpbin.org", "httpbin.org", "httpbin.org", "httpbin.org", "httpbin.org", ...
-    ## $ args    <data.frame> 
-    ## $ id      <int> 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 2...
-    ## $ origin  <chr> "50.252.233.22", "50.252.233.22", "50.252.233.22", "50.252.233.22", "50.252.233.22", "50.252.233.22...
+    ## Variables: 7
+    ## $ url                     <chr> "http://httpbin.org/stream/100", "http://httpbin.org/stream/100", "http://httpbin.o...
+    ## $ id                      <int> 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 2...
+    ## $ origin                  <chr> "50.252.233.22", "50.252.233.22", "50.252.233.22", "50.252.233.22", "50.252.233.22"...
+    ## $ headers.Host            <chr> "httpbin.org", "httpbin.org", "httpbin.org", "httpbin.org", "httpbin.org", "httpbin...
+    ## $ headers.Accept-Encoding <chr> "identity", "identity", "identity", "identity", "identity", "identity", "identity",...
+    ## $ headers.Accept          <chr> "*/*", "*/*", "*/*", "*/*", "*/*", "*/*", "*/*", "*/*", "*/*", "*/*", "*/*", "*/*",...
+    ## $ headers.User-Agent      <chr> "Wget/1.18 (darwin15.5.0)", "Wget/1.18 (darwin15.5.0)", "Wget/1.18 (darwin15.5.0)",...
 
 ``` r
 microbenchmark(
@@ -161,8 +195,8 @@ microbenchmark(
 
     ## Unit: milliseconds
     ##      expr      min       lq     mean   median       uq       max neval cld
-    ##    ndjson 1.992763 2.206649 2.552674 2.393933 2.637830  5.611511   100  a 
-    ##  jsonlite 6.581225 7.346081 8.175704 7.788215 8.385383 18.362504   100   b
+    ##    ndjson 2.694575 2.883204 3.000030 2.956595 3.033864  4.319816   100  a 
+    ##  jsonlite 8.487524 9.011873 9.411114 9.151305 9.334732 12.523081   100   b
 
 ``` r
 microbenchmark(
@@ -173,8 +207,8 @@ microbenchmark(
 
     ## Unit: milliseconds
     ##      expr      min       lq     mean   median       uq       max neval cld
-    ##    ndjson 1.964173 2.106192 2.328189 2.277450 2.470676  4.344798   100  a 
-    ##  jsonlite 5.832732 6.217815 6.730746 6.529397 6.940126 10.365723   100   b
+    ##    ndjson 2.856464 2.957216 3.030433 3.005832 3.069114  3.436334   100  a 
+    ##  jsonlite 8.302337 8.631042 9.021032 8.795794 9.031557 12.158147   100   b
 
 ### Test Results
 
@@ -185,7 +219,7 @@ library(testthat)
 date()
 ```
 
-    ## [1] "Sat Aug 27 13:28:18 2016"
+    ## [1] "Tue Sep 27 11:08:18 2016"
 
 ``` r
 test_dir("tests/")
