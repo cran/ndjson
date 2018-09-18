@@ -1,8 +1,8 @@
-4d6dea5593b8a327af5a99a9831828f9 *DESCRIPTION
+8b46f602ad1f2fd1d50d6c2aa4f4bbdd *DESCRIPTION
 c0057bbb13cb62e5889e1ce4e883d4fa *INSTALL
 ffe6b6ff8a1d9e840a10336aeb9f39d8 *LICENSE
 149c2678790f2036c4b842998cf0385f *NAMESPACE
-b244e9f699331ea957fc053e7c66489a *NEWS.md
+f03a1260bd26c50f926f619bcf328d2b *NEWS.md
 69e18bc10c62b406174793222f3196f9 *R/RcppExports.R
 aa0094966891b5a86a787f58641da217 *R/ndjson-package.R
 b289f75b7e5660c112c6aad5f35bb193 *R/ndjson.R
@@ -13,11 +13,11 @@ cca0e60e209e31a2aa64cb3c89da3838 *man/flatten.Rd
 c64235343aa2725a7ad8fe0f804aff64 *man/ndjson.Rd
 0fce95fe780b1c20aa4d53b7447d204d *man/stream_in.Rd
 9350a0fa16dd09357f3ca08508304f91 *man/validate.Rd
-442af6488e4bd2408d4e764201d08ce8 *src/Makevars
+916fa92dbc4a9cd9ab52b4c007105785 *src/Makevars
 c5e51c47858981e2bc9e68184605a8c0 *src/RcppExports.cpp
 1715bccc862b147441c161c01511dddd *src/gzstream.cpp
 99d59b3af2c3974f943e118556645888 *src/gzstream.h
-d0ea3c5c8907d3f7ef24bd19878e6b2e *src/json.h
+7699628fd9860b2316f4bcb63aec4d84 *src/json.h
 1de77230def80a63453fbe386851b385 *src/ndjson.cpp
 f390d40dda42350b8988eb1c16213cc1 *tests/test-all.R
 44cff278d4c0353dc03a1ffd44acff54 *tests/testthat/test-ndjson.R
