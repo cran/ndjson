@@ -1,8 +1,8 @@
 Package: ndjson
 Type: Package
 Title: Wicked-Fast Streaming 'JSON' ('ndjson') Reader
-Version: 0.8.0
-Date: 2019-11-13
+Version: 0.9.0
+Date: 2022-10-14
 Authors@R: c( person("Bob", "Rudis", email = "bob@rud.is", role =
         c("aut", "cre"), comment = c(ORCID = "0000-0001-5670-2640")),
         person("Niels", "Lohmann", role = "aut", comment = "C++ json
@@ -21,9 +21,9 @@ Description: Streaming 'JSON' ('ndjson') has one 'JSON' record per-line
         'ndjson' files or compressed ('gz') 'ndjson' files and either
         validate the format of the records or create "flat" 'data.table'
         structures from them.
-URL: http://gitlab.com/hrbrmstr/ndjson
-BugReports: https://gitlab.com/hrbrmstr/ndjson/issues
-SystemRequirements: zlib, C++14
+URL: https://github.com/hrbrmstr/ndjson
+BugReports: https://github.com/hrbrmstr/ndjson/issues
+SystemRequirements: zlib, C++17
 NeedsCompilation: yes
 License: MIT + file LICENSE
 Encoding: UTF-8
@@ -31,8 +31,8 @@ Suggests: tinytest, covr
 Depends: R (>= 3.2.0)
 Imports: Rcpp, data.table, tibble
 LinkingTo: Rcpp
-RoxygenNote: 6.1.1
-Packaged: 2019-11-13 14:54:51 UTC; hrbrmstr
+RoxygenNote: 7.2.1
+Packaged: 2022-10-16 12:47:45 UTC; hrbrmstr
 Author: Bob Rudis [aut, cre] (<https://orcid.org/0000-0001-5670-2640>),
   Niels Lohmann [aut] (C++ json parser),
   Deepak Bandyopadhyay [aut] (C++ gzstream),
@@ -40,4 +40,4 @@ Author: Bob Rudis [aut, cre] (<https://orcid.org/0000-0001-5670-2640>),
   Neal Fultz [ctb] (Rcpp integration),
   Maarten Demeyer [ctb] (dtplyr cleanup)
 Repository: CRAN
-Date/Publication: 2019-11-13 15:20:02 UTC
+Date/Publication: 2022-10-17 07:10:04 UTC
