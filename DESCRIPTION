@@ -1,8 +1,8 @@
 Package: ndjson
 Type: Package
 Title: Wicked-Fast Streaming 'JSON' ('ndjson') Reader
-Version: 0.9.0
-Date: 2022-10-14
+Version: 0.9.1
+Date: 2025-03-06
 Authors@R: c( person("Bob", "Rudis", email = "bob@rud.is", role =
         c("aut", "cre"), comment = c(ORCID = "0000-0001-5670-2640")),
         person("Niels", "Lohmann", role = "aut", comment = "C++ json
@@ -31,8 +31,8 @@ Suggests: tinytest, covr
 Depends: R (>= 3.2.0)
 Imports: Rcpp, data.table, tibble
 LinkingTo: Rcpp
-RoxygenNote: 7.2.1
-Packaged: 2022-10-16 12:47:45 UTC; hrbrmstr
+RoxygenNote: 7.3.2
+Packaged: 2025-03-06 21:55:34 UTC; hrbrmstr
 Author: Bob Rudis [aut, cre] (<https://orcid.org/0000-0001-5670-2640>),
   Niels Lohmann [aut] (C++ json parser),
   Deepak Bandyopadhyay [aut] (C++ gzstream),
@@ -40,4 +40,4 @@ Author: Bob Rudis [aut, cre] (<https://orcid.org/0000-0001-5670-2640>),
   Neal Fultz [ctb] (Rcpp integration),
   Maarten Demeyer [ctb] (dtplyr cleanup)
 Repository: CRAN
-Date/Publication: 2022-10-17 07:10:04 UTC
+Date/Publication: 2025-03-06 22:20:02 UTC

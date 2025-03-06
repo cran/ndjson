@@ -10,7 +10,7 @@
 #'        option of keeping it a `data.table` or converting it to a `tbl`
 #' @return \code{data.table} or \code{tbl}
 #' @export
-#' @references \url{http://ndjson.org/}
+#' @references \url{https://ndjson.org/}
 #' @examples
 #' f <- system.file("extdata", "test.json", package="ndjson")
 #' nrow(stream_in(f))
@@ -35,7 +35,7 @@ stream_in <- function(path, cls = c("dt", "tbl")) {
 #' @param verbose display verbose information (filename and line numbers with bad records)
 #' @return logical
 #' @export
-#' @references \url{http://ndjson.org/}
+#' @references \url{https://ndjson.org/}
 #' @examples
 #' f <- system.file("extdata", "test.json", package="ndjson")
 #' validate(f)

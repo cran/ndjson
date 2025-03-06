@@ -28,5 +28,5 @@ gzf <- system.file("extdata", "testgz.json.gz", package="ndjson")
 nrow(stream_in(gzf))
 }
 \references{
-\url{http://ndjson.org/}
+\url{https://ndjson.org/}
 }

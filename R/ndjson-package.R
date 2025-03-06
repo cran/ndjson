@@ -11,8 +11,7 @@
 #' structures from them.
 #'
 #' @name ndjson
-#' @docType package
 #' @author Bob Rudis (bob@@rud.is)
 #' @useDynLib ndjson, .registration=TRUE
 #' @importFrom Rcpp sourceCpp
-NULL
+"_PACKAGE"

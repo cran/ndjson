@@ -2,6 +2,7 @@
 % Please edit documentation in R/ndjson-package.R
 \docType{package}
 \name{ndjson}
+\alias{ndjson-package}
 \alias{ndjson}
 \title{Wicked-fast Streaming JSON ('ndjson) Reader}
 \description{
@@ -14,6 +15,14 @@ Functions are provided that make it possible to read in plain
 ndjson' files or compressed ('gz') 'ndjson' files and either
 validate the format of the records or create "flat" 'data.table'
 structures from them.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/hrbrmstr/ndjson}
+  \item Report bugs at \url{https://github.com/hrbrmstr/ndjson/issues}
+}
+
 }
 \author{
 Bob Rudis (bob@rud.is)
